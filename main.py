@@ -28,8 +28,11 @@ class Handler(webapp2.RequestHandler):
 class MainPage(Handler):
     """ Default HTTP Request Handler """
     def get(self):
-        """ Handle GET requests """
-        self.render("index.html")
+        """ Display 10 most recent blog posts """
+
+        posts = db_post.Post.view_posts(10)
+
+        self.render("allblogs.html", posts=posts)
 
 class NewPost(Handler):
     """ Handles all requests related to creating new blog posts """
@@ -42,6 +45,7 @@ class NewPost(Handler):
         self.show_form()
 
     def post(self):
+        """ If user input from form is valid, create new blog post in database """
         form_data = {}
         form_data["title"] = self.request.get("title")
         form_data["content"] = self.request.get("content")
@@ -49,9 +53,11 @@ class NewPost(Handler):
         if form_data["title"] and form_data["content"]:
             new_post = db_post.Post(title=form_data["title"],
                                     content=form_data["content"])
+            #TODO: Add author to creation of blog post
             new_post.put()
         else:
             form_data["error"] = "Both a title and content are required"
+            self.show_form(form_data)
 
 # Routes requests to specific handlers
 app = webapp2.WSGIApplication([("/", MainPage),
