@@ -3,13 +3,17 @@
 {% block content %}
 
 <form method="post">
-    <input class="title" name="title" type="text">
-    <span class="error">{{}}</span>
+    <label for="title">Title</label>
     <br>
-    <textarea class="content" name="content"></textarea>
-    <span class="error">{{}}</span>
+    <input class="title" name="title" type="text" value="{{form_data['title']}}" id="title">
+    <br>
+    <label for="content">Content</label>
+    <br>
+    <textarea class="content" name="content" id="content">{{form_data['content']}}</textarea>
     <br>
     <input type="submit">
+    <br>
+    <span class="error">{{form_data['error']}}</span>
 </form>
 
 {% endblock %}
