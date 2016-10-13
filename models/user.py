@@ -13,17 +13,18 @@ class User(db.Model):
 
     @classmethod
     def by_id(cls, id):
-        """ Returns a User object by param:id if found in db """
+        """ Returns a User object by param:id if found in database """
         return User.get_by_id(id)
 
     @classmethod
     def by_name(cls, name):
-        """ Returns a User object by param:name if found in db """
+        """ Returns a User object by param:name if found in database """
         return User.all().filter('name=', name).get()
 
     @classmethod
     def register(cls, username, pw_hash, email=None):
-        """ Returns a User object """
-        return User(username=username,
+        """ Creates user object and writes to database """
+        user = User(username=username,
                     pw_hash=pw_hash,
                     email=email)
+        user.put()

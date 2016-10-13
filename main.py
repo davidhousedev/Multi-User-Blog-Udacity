@@ -4,7 +4,9 @@ import jinja2 # HTML Templating framework
 import webapp2 # Required by Google Cloud Platform for request handling
 
 import models.post as db_post
-import helpers.data_validation as validate
+import models.user as db_user
+import helpers.form_data as validate_form
+import helpers.password as pw_hash
 
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 JINJA_ENV = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATE_DIR),
@@ -73,6 +75,7 @@ class SignUp(Handler):
     def post(self):
         """ If user input from form is valid, create new user in database """
         # Logic inspired by Intro to Backend course materials
+        #TODO: Abstract away this code to form_data.py
         error_flag = False
         username = self.request.get("username")
         password = self.request.get("password")
@@ -81,18 +84,19 @@ class SignUp(Handler):
 
         params = dict(username=username,
                       email=email)
-        if not validate.username(username):
+
+        if not validate_form.username(username):
             params["error_username"] = "That is not a valid username"
             error_flag = True
 
-        if not validate.password(password):
+        if not validate_form.password(password):
             params["error_password"] = "That is not a valid password"
             error_flag = True
         elif password != verify:
             params["error_verify"] = "Passwords do not match"
             error_flag = True
 
-        if not validate.email(email):
+        if not validate_form.email(email):
             params["error_email"] = "That is not a valid email"
             error_flag = True
 
@@ -100,7 +104,9 @@ class SignUp(Handler):
             self.render("signup.html", **params)
         else:
             #TODO: Write valid user to db
-            raise NotImplementedError
+            hashed_pw = pw_hash.make(username, password)
+            db_user.User.register(username, hashed_pw, email)
+            self.redirect("/")
 
 
 
