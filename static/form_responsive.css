@@ -1,0 +1,16 @@
+.container {
+    margin-left: 10%;
+    width: 60%;
+}
+
+@media screen and (min-width: 800px) {
+    .container {
+        width: 450px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .container {
+        width: 80%;
+    }
+}

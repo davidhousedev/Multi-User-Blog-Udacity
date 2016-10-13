@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="/static/form_responsive.css">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form method="post">
+        <div class="form-group row">
+            <label class="col-sm-2 col-xs-12 col-form-label" for="username">Username</label>
+            <div class="col-sm-10 col-xs-12">
+                <input class="input form-control" name="username" type="text" value="{{username}}" id="username">
+                <span class="help-inline">{{error_username}}</span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-xs-12 col-form-label" for="password">Password</label>
+            <div class="col-sm-10 col-xs-12">
+                <input class="input form-control" name="password" type="password" id="password">
+                <span class="help-inline">{{error_password}}</span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-xs-12 col-form-label" for="verify">Verify</label>
+            <div class="col-sm-10 col-xs-12">
+                <input class="input form-control" name="verify" type="password" id="verify">
+                <span class="help-inline">{{error_verify}}</span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-xs-12 col-form-label" for="email">Email</label>
+            <div class="col-sm-10 col-xs-12">
+                <input class="email form-control" name="email" type="text" value="{{email}}" id="email">
+                <span class="help-inline">{{error_email}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="offset-xs-2 col-xs-10">
+                <button class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+
+
+
+    </form>
+</div>
+{% endblock %}

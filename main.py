@@ -4,6 +4,7 @@ import jinja2 # HTML Templating framework
 import webapp2 # Required by Google Cloud Platform for request handling
 
 import models.post as db_post
+import helpers.data_validation as validate
 
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 JINJA_ENV = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATE_DIR),
@@ -59,9 +60,59 @@ class NewPost(Handler):
             form_data["error"] = "Both a title and content are required"
             self.show_form(form_data)
 
+class SignUp(Handler):
+    """ Handles all requests pertaining to signing up new users """
+    def show_form(self, form_data=None):
+        """ Display HTML form with any residual user-generated content """
+        self.render("signup.html", form_data=None)
+
+    def get(self):
+        """ Show form without any user data """
+        self.show_form()
+
+    def post(self):
+        """ If user input from form is valid, create new user in database """
+        # Logic inspired by Intro to Backend course materials
+        error_flag = False
+        username = self.request.get("username")
+        password = self.request.get("password")
+        verify = self.request.get("verify")
+        email = self.request.get("email")
+
+        params = dict(username=username,
+                      email=email)
+        if not validate.username(username):
+            params["error_username"] = "That is not a valid username"
+            error_flag = True
+
+        if not validate.password(password):
+            params["error_password"] = "That is not a valid password"
+            error_flag = True
+        elif password != verify:
+            params["error_verify"] = "Passwords do not match"
+            error_flag = True
+
+        if not validate.email(email):
+            params["error_email"] = "That is not a valid email"
+            error_flag = True
+
+        if error_flag:
+            self.render("signup.html", **params)
+        else:
+            #TODO: Write valid user to db
+            raise NotImplementedError
+
+
+
+
+
+
+
+
 # Routes requests to specific handlers
 app = webapp2.WSGIApplication([("/", MainPage),
                                ("/new", NewPost),
+                               ("/signup", SignUp),
                               ],
                               debug=True
                               )
