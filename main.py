@@ -1,7 +1,7 @@
 import os
 
-import jinja2
-import webapp2
+import jinja2 #HTML Templating framework
+import webapp2 #Required by Google Cloud Platform for request handling
 
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 JINJA_ENV = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATE_DIR),
@@ -29,6 +29,7 @@ class MainPage(Handler):
         """ Handle GET requests """
         self.render("index.html")
 
+# Routes requests to specific handlers
 app = webapp2.WSGIApplication([('/', MainPage),
                               ],
                               debug=True
