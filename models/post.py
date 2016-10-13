@@ -4,7 +4,7 @@ from google.appengine.ext import db
 
 class Post(db.Model):
     """ Database model for a blog post """
-    title = db.StringPropert(required=True)
+    title = db.StringProperty(required=True)
     content = db.TextProperty(required=True)
     created = db.DateTimeProperty(auto_now_add=True)
     last_edit = db.DateTimeProperty(auto_now=True)
