@@ -14,14 +14,15 @@ class Post(db.Model):
     def view_posts(cls, num=None):
         """ Returns a List of num (optional) most
         recent blog posts for all authors """
+        #TODO: Add parent as parameter
         post_list = []
         posts = Post.all().order("-created")
 
         for post in posts.run(limit=num):
             post_list.append(post)
-
+        #TODO: Incoorporate self.render in output
         return post_list
-view_posts()
+
     def render(self):
         """ Return a post's content,
         replacing new-line with <br> for HTML"""

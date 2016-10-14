@@ -13,5 +13,4 @@ def password(password):
 EMAIL_RE  = re.compile(r'^[\S]+@[\S]+\.[\S]+$')
 def email(email):
     """ Returns param:email if valid """
-    #TODO: double check syntax
     return not email or EMAIL_RE.match(email)
