@@ -19,7 +19,10 @@ class User(db.Model):
     @classmethod
     def by_name(cls, name):
         """ Returns a User object by param:name if found in database """
-        return User.all().filter('name=', name).get()
+        users = db.GqlQuery("SELECT * FROM User WHERE username='%s'" % name)
+        for user in users:
+            if user.username == name:
+                return user
 
     @classmethod
     def register(cls, username, pw_hash, email=None):
@@ -28,3 +31,4 @@ class User(db.Model):
                     pw_hash=pw_hash,
                     email=email)
         user.put()
+        return user

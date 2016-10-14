@@ -5,13 +5,16 @@ import webapp2 # Required by Google Cloud Platform for request handling
 
 import models.post as db_post
 import models.user as db_user
+import helpers.cookie as cookie
 import helpers.form_data as validate_form
 import helpers.password as pw_hash
 
+# Jinja environment logic sourced from Intro to Backend course material
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 JINJA_ENV = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATE_DIR),
                                autoescape=True)
 
+# Methods in Handler class are all sourced from Intro to Backend course material
 class Handler(webapp2.RequestHandler):
     """ Renders html templates with Jinja2 variables """
     def write(self, *a, **kw):
@@ -27,6 +30,27 @@ class Handler(webapp2.RequestHandler):
         """ Render a specific template (param0)
         with any number of vars (params1+) """
         self.write(self.render_str(template, **kw))
+
+    def set_secure_cookie(self, name, val):
+        """ Creates, then sends to user, a secure cookie of "name=val|hash" """
+        cookie_val = cookie.make(val)
+        self.response.headers.add_header(
+            'Set-Cookie',
+            '%s=%s; Path=/' % (name, cookie_val))
+
+    def read_secure_cookie(self, name):
+        """ Reads, then validates the user cookie param:name """
+        cookie_val = self.request.cookies.get(name)
+        no_hash_val = cookie.validate(cookie_val)
+        if no_hash_val:
+            return no_hash_val
+
+    def initialize(self, *a, **kw):
+        """ On every page load, searches for and reads any user authentication cookie
+        If found, queries database for record of that user to store in self.user """
+        webapp2.RequestHandler.initialize(self, *a, **kw)
+        username = self.read_secure_cookie('username')
+        self.user = db_user.User.by_name(username)
 
 class MainPage(Handler):
     """ Default HTTP Request Handler """
@@ -85,6 +109,8 @@ class SignUp(Handler):
         params = dict(username=username,
                       email=email)
 
+        #TODO: Check if user already exists in DB
+
         if not validate_form.username(username):
             params["error_username"] = "That is not a valid username"
             error_flag = True
@@ -103,9 +129,9 @@ class SignUp(Handler):
         if error_flag:
             self.render("signup.html", **params)
         else:
-            #TODO: Write valid user to db
             hashed_pw = pw_hash.make(username, password)
-            db_user.User.register(username, hashed_pw, email)
+            usr = db_user.User.register(username, hashed_pw, email)
+            self.set_secure_cookie("username", usr.username)
             self.redirect("/")
 
 
