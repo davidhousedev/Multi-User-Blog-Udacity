@@ -1,6 +1,10 @@
 .container {
     margin-left: 10%;
-    width: 60%;
+    width: 80%;
+}
+
+form {
+    width: 100%;
 }
 
 .help-inline {
@@ -13,7 +17,7 @@ textarea {
 
 @media screen and (min-width: 800px) {
     .container {
-        width: 450px;
+        width: 60%;
     }
 }
 

@@ -18,9 +18,11 @@
     </div>
     <div class="user-options col-xs-9">
         {% if current_user %}
-            <a class="btn btn-outline-primary" href="/new">New Post</a>   <a class="btn btn-outline-secondary" href="/logout">Logout</a>
+            <a class="btn btn-outline-primary" href="/new">New Post</a>
+            <a class="btn btn-outline-secondary" href="/logout">Logout</a>
         {% else %}
-            <p><a class="btn btn-outline-secondary" href="/login">Login</a></p>
+            <a class="btn btn-outline-secondary" href="/login">Login</a>
+            <a class="btn btn-outline-secondary" href="/signup">Signup</a>
         {% endif %}
     </div>
 </header>
