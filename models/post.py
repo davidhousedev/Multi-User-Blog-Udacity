@@ -11,14 +11,17 @@ class Post(db.Model):
     #TODO: Add author as property
 
     @classmethod
-    def view_posts(cls, num=None):
+    def view_posts(cls, num=None, parent=None):
         """ Returns a List of num (optional) most
         recent blog posts for all authors """
-        #TODO: Add parent as parameter
         post_list = []
-        posts = Post.all().order("-created")
+        posts = Post.all()
+        if parent:
+            posts.ancestor(parent)
+        posts.order("-created")
 
         for post in posts.run(limit=num):
+            post.render()
             post_list.append(post)
         #TODO: Incoorporate self.render in output
         return post_list
@@ -26,4 +29,4 @@ class Post(db.Model):
     def render(self):
         """ Return a post's content,
         replacing new-line with <br> for HTML"""
-        return self.content.replace('\n', '<br>')
+        self._render_text = self.content.replace('\n', '<br>')

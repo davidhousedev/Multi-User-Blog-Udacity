@@ -67,7 +67,7 @@ class MainPage(Handler):
     def get(self):
         """ Display 10 most recent blog posts """
 
-        posts = db_post.Post.view_posts(10)
+        posts = db_post.Post.view_posts(10, self.user)
 
         self.render("allblogs.html", posts=posts)
 
@@ -88,7 +88,8 @@ class NewPost(Handler):
         form_data["content"] = self.request.get("content")
 
         if form_data["title"] and form_data["content"]:
-            new_post = db_post.Post(title=form_data["title"],
+            new_post = db_post.Post(parent=self.user,
+                                    title=form_data["title"],
                                     content=form_data["content"])
             #TODO: Add author to creation of blog post
             new_post.put()

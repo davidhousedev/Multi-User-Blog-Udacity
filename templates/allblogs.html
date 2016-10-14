@@ -5,7 +5,7 @@
         {% for post in posts %}
             <article class="post">
                 <h3 class="post-title">{{post.title}}</h3>
-                <p class="post-content">{{post.content}}</p>
+                <p class="post-content">{{post._render_text | safe}}</p>
                 <small class="post-created">{{post.created}}</small>
             </article>
         {% endfor %}
