@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Blahg</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/main.css">
     {% block styles %}
         <!-- Page-specific style sheets will be imported here by Jinja2 -->
@@ -13,14 +13,14 @@
 </head>
 <body class="container-fluid">
 <header class="header row">
-    <div class="col-xs-8">
+    <div class="title col-xs-2">
         <h1>Blahg</h1>
     </div>
-    <div class="col-xs-4">
+    <div class="user-options col-xs-9">
         {% if current_user %}
-            <p>Welcome, {{current_user}}   <a class="btn btn-primary" href="/logout">Logout</a></p>
+            <a class="btn btn-outline-primary" href="/new">New Post</a>   <a class="btn btn-outline-secondary" href="/logout">Logout</a>
         {% else %}
-            <p><a class="btn btn-primary" href="/login">Login</a></p>
+            <p><a class="btn btn-outline-secondary" href="/login">Login</a></p>
         {% endif %}
     </div>
 </header>

@@ -8,7 +8,6 @@ class Post(db.Model):
     content = db.TextProperty(required=True)
     created = db.DateTimeProperty(auto_now_add=True)
     last_edit = db.DateTimeProperty(auto_now=True)
-    #TODO: Add author as property
 
     @classmethod
     def view_posts(cls, num=None, parent=None):
@@ -23,7 +22,6 @@ class Post(db.Model):
         for post in posts.run(limit=num):
             post.render()
             post_list.append(post)
-        #TODO: Incoorporate self.render in output
         return post_list
 
     def render(self):
