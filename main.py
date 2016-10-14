@@ -45,6 +45,14 @@ class Handler(webapp2.RequestHandler):
         if no_hash_val:
             return no_hash_val
 
+    def login(self, user):
+        """ Sends secure cookie to browser according to current user """
+        self.set_secure_cookie('username', user.username)
+
+    def logout(self):
+        """ Clears current authentication cookie """
+        self.response.headers.add_header('Set-Cookie', 'username=; Path=/')
+
     def initialize(self, *a, **kw):
         """ On every page load, searches for and reads any user authentication cookie
         If found, queries database for record of that user to store in self.user """
@@ -134,6 +142,32 @@ class SignUp(Handler):
             self.set_secure_cookie("username", usr.username)
             self.redirect("/")
 
+class Login(Handler):
+    """ Renders login screen to user
+    and facilitates validation of username and password """
+    def get(self):
+        self.render("login.html")
+
+    def post(self):
+        username = self.request.get("username")
+        password = self.request.get("password")
+
+        params = dict(username=username)
+
+        if validate_form.username(username) and validate_form.password(password):
+            user = db_user.User.by_name(username)
+            if user:
+                if pw_hash.validate(username, password, user.pw_hash):
+                    self.login(user)
+                    self.redirect("/")
+                    return
+        params["login_error"] = "Invalid username or password"
+        self.render("login.html", **params)
+
+
+
+
+
 
 
 
@@ -145,6 +179,7 @@ class SignUp(Handler):
 app = webapp2.WSGIApplication([("/", MainPage),
                                ("/new", NewPost),
                                ("/signup", SignUp),
+                               ("/login", Login)
                               ],
                               debug=True
                               )
