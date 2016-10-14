@@ -89,6 +89,7 @@ class NewPost(Handler):
 
         if form_data["title"] and form_data["content"]:
             new_post = db_post.Post(parent=self.user,
+                                    author=self.user.username,
                                     title=form_data["title"],
                                     content=form_data["content"])
             #TODO: Add author to creation of blog post

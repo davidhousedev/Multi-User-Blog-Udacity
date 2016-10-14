@@ -4,6 +4,7 @@ from google.appengine.ext import db
 
 class Post(db.Model):
     """ Database model for a blog post """
+    author = db.StringProperty(required=True)
     title = db.StringProperty(required=True)
     content = db.TextProperty(required=True)
     created = db.DateTimeProperty(auto_now_add=True)
@@ -25,6 +26,6 @@ class Post(db.Model):
         return post_list
 
     def render(self):
-        """ Return a post's content,
-        replacing new-line with <br> for HTML"""
+        """ Replaces newlines in post content with <br>
+        and saves to self._render_text"""
         self._render_text = self.content.replace('\n', '<br>')
