@@ -166,6 +166,10 @@ class Login(Handler):
         params["login_error"] = "Invalid username or password"
         self.render("login.html", **params)
 
+class LogOut(Handler):
+    def get(self):
+        self.logout()
+        self.redirect("/")
 
 
 
@@ -181,7 +185,8 @@ class Login(Handler):
 app = webapp2.WSGIApplication([("/", MainPage),
                                ("/new", NewPost),
                                ("/signup", SignUp),
-                               ("/login", Login)
+                               ("/login", Login),
+                               ("/logout", LogOut),
                               ],
                               debug=True
                               )

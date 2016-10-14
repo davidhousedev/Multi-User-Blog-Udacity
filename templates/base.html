@@ -18,9 +18,9 @@
     </div>
     <div class="col-xs-4">
         {% if current_user %}
-            <p>Welcome, {{current_user}}   <a class="btn" href="/logout">Logout</a></p>
+            <p>Welcome, {{current_user}}   <a class="btn btn-primary" href="/logout">Logout</a></p>
         {% else %}
-            <a class="btn" href="/login">Login</a>
+            <p><a class="btn btn-primary" href="/login">Login</a></p>
         {% endif %}
     </div>
 </header>
