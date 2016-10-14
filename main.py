@@ -28,7 +28,9 @@ class Handler(webapp2.RequestHandler):
 
     def render(self, template, **kw):
         """ Render a specific template (param0)
-        with any number of vars (params1+) """
+        with any number of vars and the current user (if logged in) """
+        if self.user:
+            kw["current_user"] = self.user.username
         self.write(self.render_str(template, **kw))
 
     def set_secure_cookie(self, name, val):
