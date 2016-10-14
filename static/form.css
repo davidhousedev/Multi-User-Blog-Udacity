@@ -7,6 +7,10 @@
     color: red;
 }
 
+textarea {
+    min-height: 300px;
+}
+
 @media screen and (min-width: 800px) {
     .container {
         width: 450px;
