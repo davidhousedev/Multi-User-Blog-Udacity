@@ -11,12 +11,12 @@
         <!-- Page-specific style sheets will be imported here by Jinja2 -->
     {% endblock %}
 </head>
-<body class="container-fluid">
+<body class="container">
 <header class="header row">
-    <div class="title col-xs-2">
+    <div class="title col-xs-4">
         <h1>Blahg</h1>
     </div>
-    <div class="user-options col-xs-9">
+    <div class="user-options col-xs-8">
         {% if current_user %}
             <a class="btn btn-outline-primary" href="/new">New Post</a>
             <a class="btn btn-outline-secondary" href="/logout">Logout</a>

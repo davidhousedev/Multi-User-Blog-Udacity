@@ -1,10 +1,8 @@
-.container {
-    margin-left: 10%;
-    width: 80%;
-}
-
 form {
-    width: 100%;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
 }
 
 .help-inline {
@@ -15,14 +13,8 @@ textarea {
     min-height: 300px;
 }
 
-@media screen and (min-width: 800px) {
-    .container {
-        width: 60%;
-    }
-}
-
-@media screen and (max-width: 500px) {
-    .container {
-        width: 80%;
+@media screen and (min-width: 550px) {
+    form {
+        width: 450px;
     }
 }

@@ -1,0 +1,41 @@
+.post {
+    margin-top: 10px;
+}
+
+.post:not(:first-child) {
+    margin-top: 20px;
+}
+
+.post-title-row {
+    border-bottom: 2px solid grey;
+}
+
+.author {
+    font-size: 0.6em;
+    opacity: 0.5;
+}
+
+.post-date {
+    margin-top: -13px;
+    opacity: 0.5;
+}
+
+.post-content {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+@media screen and (min-width: 544px) {
+    .post-date {
+        text-align: right;
+        margin-top: 0;
+    }
+}
+
+@media screen and (min-width: 735px) {
+    main {
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
