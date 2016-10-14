@@ -11,9 +11,19 @@
         <!-- Page-specific style sheets will be imported here by Jinja2 -->
     {% endblock %}
 </head>
-<body>
-<h1>Multi-User Blahg</h1>
-<p>Welcome {{current_user}}</p>
+<body class="container-fluid">
+<header class="header row">
+    <div class="col-xs-8">
+        <h1>Blahg</h1>
+    </div>
+    <div class="col-xs-4">
+        {% if current_user %}
+            <p>Welcome, {{current_user}}   <a class="btn" href="/logout">Logout</a></p>
+        {% else %}
+            <a class="btn" href="/login">Login</a>
+        {% endif %}
+    </div>
+</header>
 
 {% block content %}
     <!-- Main content of the page will be imported here -->
