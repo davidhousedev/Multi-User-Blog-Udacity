@@ -12,7 +12,7 @@ class Comment(db.Model):
     def get_comments(cls, parent):
         """ Returns an array of Comment entities
         for a parent Blog post """
-        comment_arry
+        comment_arry = []
         comments = Comment.all().ancestor(parent)
         comments.order("-created")
 

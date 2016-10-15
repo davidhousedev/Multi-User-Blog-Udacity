@@ -44,9 +44,10 @@ class Handler(webapp2.RequestHandler):
     def read_secure_cookie(self, name):
         """ Reads, then validates the user cookie param:name """
         cookie_val = self.request.cookies.get(name)
-        no_hash_val = cookie.validate(cookie_val)
-        if no_hash_val:
-            return no_hash_val
+        if cookie_val:
+            no_hash_val = cookie.validate(cookie_val)
+            if no_hash_val:
+                return no_hash_val
 
     def login(self, user):
         """ Sends secure cookie to browser according to current user """
