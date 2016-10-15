@@ -1,7 +1,8 @@
 import webapp2
 
 from google.appengine.ext import db
-
+#TODO: Add 'likes'
+#TODO: Add post edit capabilities
 class Post(db.Model):
     """ Database model for a blog post """
     author = db.StringProperty(required=True)
@@ -38,3 +39,7 @@ class Post(db.Model):
         """ Replaces newlines in post content with <br>
         and saves to self._render_text"""
         self._render_text = self.content.replace('\n', '<br>')
+
+    def num_comments(self, num):
+        """ Stores the number (num) of comments as a property """
+        self._num_comments = str(num)

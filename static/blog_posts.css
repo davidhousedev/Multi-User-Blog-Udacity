@@ -25,6 +25,10 @@
     margin-left: 10px;
 }
 
+.comment-number {
+    padding: 15px;
+}
+
 @media screen and (min-width: 544px) {
     .post-date {
         text-align: right;

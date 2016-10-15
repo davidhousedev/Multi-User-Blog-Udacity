@@ -20,7 +20,9 @@
                 <div class="post-content row">
                     <p class="post-content">{{post._render_text | safe}}</p>
                 </div>
-                <div class="post-footer row"></div>
+                <div class="post-footer row">
+                    <a href="/post/{{post.author}}/{{post.key().id()}}"><small class="comment-number">{{post._num_comments}} <span class="entypo-comment"></span></small></a>
+                </div>
 
             </article>
         {% endfor %}

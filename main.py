@@ -71,6 +71,12 @@ class MainPage(Handler):
 
         posts = db_post.Post.view_posts(10)
 
+        # Get the number of comments for each post,
+        # and store as int in each post.
+        for post in posts:
+            comment_arry = db_comment.Comment.get_comments(post)
+            post.num_comments(len(comment_arry))
+
         self.render("allblogs.html", posts=posts)
 
 class NewPost(Handler):
