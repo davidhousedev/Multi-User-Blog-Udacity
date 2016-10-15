@@ -33,6 +33,12 @@
                 <div class="post-footer row">
                     <div class="col-xs-12">
                         <button class="btn btn-primary" id="post-comment">Comment</button>
+                        <a href="/post/{{post.author}}/{{post.key().id()}}/like/{{user.username}}" class="btn btn-primary">Like</a>
+                        <p>{{post.likes}} likes</p>
+                        <p>liked by: </p>
+                        {% for person in post.users_liked %}
+                            <p>{{person}}</p>
+                        {% endfor %}
                     </div>
                 </div>
             {% endif %}

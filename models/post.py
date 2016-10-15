@@ -8,6 +8,8 @@ class Post(db.Model):
     author = db.StringProperty(required=True)
     title = db.StringProperty(required=True)
     content = db.TextProperty(required=True)
+    likes = db.IntegerProperty(required=True)
+    users_liked = db.StringListProperty(required=True)
     created = db.DateTimeProperty(auto_now_add=True)
     last_edit = db.DateTimeProperty(auto_now=True)
 
@@ -34,6 +36,18 @@ class Post(db.Model):
             post.render()
             post_list.append(post)
         return post_list
+
+    @classmethod
+    def like(cls, author, db_id, liker):
+        """ If param:liker has not already liked Post:db_id,
+        increase Post likes by 1, otherwise return false """
+        post = cls.get_post(author, db_id)
+        if liker in post.users_liked:
+            return False
+        post.likes += 1
+        post.users_liked.append(str(liker))
+        post.put()
+        return True
 
     def render(self):
         """ Replaces newlines in post content with <br>

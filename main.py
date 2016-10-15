@@ -105,6 +105,8 @@ class NewPost(Handler):
             new_post = db_post.Post(parent=self.user,
                                     author=self.user.username,
                                     title=form_data["title"],
+                                    likes=0,
+                                    users_liked = [],
                                     content=form_data["content"])
             new_post.put()
             self.redirect("/post/%s/%s" %(self.user.username,
@@ -140,6 +142,19 @@ class ViewPost(Handler):
                                          author=self.user.username)
         comment.put()
         self.redirect("/post" "/%s/%s" % (user, post_id))
+
+class LikePost(Handler):
+    """ Increase post likes by 1 """
+    def get(self, *args):
+        post_author = args[0]
+        post_id = args[1]
+        user_liked = args[2]
+
+        if post_author != user_liked:
+            db_post.Post.like(post_author, post_id, user_liked)
+
+        self.redirect("/post" "/%s/%s" % (post_author, post_id))
+
 
 
 
@@ -234,6 +249,7 @@ class LogOut(Handler):
 app = webapp2.WSGIApplication([("/", MainPage),
                                ("/new", NewPost),
                                (r"/post/([a-z, A-Z]+)/([0-9]+)", ViewPost),
+                               (r"/post/([a-z, A-Z]+)/([0-9]+)/like/([a-z, A-Z]+)", LikePost),
                                ("/signup", SignUp),
                                ("/login", Login),
                                ("/logout", LogOut),
