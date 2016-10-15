@@ -67,7 +67,7 @@ class MainPage(Handler):
     def get(self):
         """ Display 10 most recent blog posts """
 
-        posts = db_post.Post.view_posts(10, self.user)
+        posts = db_post.Post.view_posts(10)
 
         self.render("allblogs.html", posts=posts)
 
@@ -99,6 +99,8 @@ class NewPost(Handler):
                                     title=form_data["title"],
                                     content=form_data["content"])
             new_post.put()
+            self.redirect("/post/%s/%s" %(self.user.username,
+                                          new_post.key().id()))
         else:
             form_data["error"] = "Both a title and content are required"
             self.show_form(form_data)
