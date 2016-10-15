@@ -77,7 +77,7 @@ class MainPage(Handler):
             comment_arry = db_comment.Comment.get_comments(post)
             post.num_comments(len(comment_arry))
 
-        self.render("allblogs.html", posts=posts)
+        self.render("allblogs.html", posts=posts, user=self.user)
 
 class NewPost(Handler):
     """ Handles all requests related to creating new blog posts """

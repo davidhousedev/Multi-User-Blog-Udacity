@@ -22,6 +22,16 @@
                 </div>
                 <div class="post-footer row">
                     <a href="/post/{{post.author}}/{{post.key().id()}}"><small class="comment-number">{{post._num_comments}} <span class="entypo-comment"></span></small></a>
+                    {% if user %}
+                        {% if user.username != post.author %}
+                            <a href="/post/{{post.author}}/{{post.key().id()}}/like/{{user.username}}"><small class="like-number">{{post.likes}}  <span class="entypo-thumbs-up"></span></small></a>
+                        {% else %}
+                            <a href="#"><small class="like-number">{{post.likes}}  <span class="entypo-thumbs-up"></span></small></a>
+                        {% endif %}
+                    {% else %}
+                        <a href="/login"><small class="like-number">{{post.likes}}  <span class="entypo-thumbs-up"></span></small></a>
+                    {% endif %}
+
                 </div>
 
             </article>

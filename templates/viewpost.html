@@ -32,13 +32,8 @@
             {% if user %}
                 <div class="post-footer row">
                     <div class="col-xs-12">
-                        <button class="btn btn-primary" id="post-comment">Comment</button>
-                        <a href="/post/{{post.author}}/{{post.key().id()}}/like/{{user.username}}" class="btn btn-primary">Like</a>
-                        <p>{{post.likes}} likes</p>
-                        <p>liked by: </p>
-                        {% for person in post.users_liked %}
-                            <p>{{person}}</p>
-                        {% endfor %}
+                        <button class="btn btn-outline-primary" id="post-comment">Comment   <span class="entypo-comment"></span></button>
+                        <a href="/post/{{post.author}}/{{post.key().id()}}/like/{{user.username}}" class="btn btn-outline-primary">{{post.likes}}  <span class="entypo-thumbs-up"></span></a>
                     </div>
                 </div>
             {% endif %}
@@ -56,7 +51,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-10 offset-sm-2">
-                        <button class="btn btn-primary">Publish</button>
+                        <button class="btn btn-outline-primary">Publish</button>
                     </div>
                 </div>
             </form>
