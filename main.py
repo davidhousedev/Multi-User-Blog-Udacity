@@ -79,10 +79,16 @@ class NewPost(Handler):
 
     def get(self):
         """ Show form without any user data """
-        self.show_form()
+        if self.user:
+            self.show_form()
+        else:
+            self.redirect("/login")
 
     def post(self):
         """ If user input from form is valid, create new blog post in database """
+        if not self.user:
+            self.redirect("/login")
+
         form_data = {}
         form_data["title"] = self.request.get("title")
         form_data["content"] = self.request.get("content")
@@ -92,11 +98,23 @@ class NewPost(Handler):
                                     author=self.user.username,
                                     title=form_data["title"],
                                     content=form_data["content"])
-            #TODO: Add author to creation of blog post
             new_post.put()
         else:
             form_data["error"] = "Both a title and content are required"
             self.show_form(form_data)
+
+class ViewPost(Handler):
+    """ Renders a single blog post via a permalink """
+    def get(self, user, post_id):
+        """ Displays a single post """
+        if not post_id and user:
+            self.redirect("/")
+            return
+
+        post = db_post.Post.get_post(user, post_id)
+
+        self.render("viewpost.html", post=post)
+
 
 class SignUp(Handler):
     """ Handles all requests pertaining to signing up new users """
@@ -121,10 +139,12 @@ class SignUp(Handler):
         params = dict(username=username,
                       email=email)
 
-        #TODO: Check if user already exists in DB
-
         if not validate_form.username(username):
             params["error_username"] = "That is not a valid username"
+            error_flag = True
+
+        if db_user.User.by_name(username):
+            params["error_username"] = "That user already exists"
             error_flag = True
 
         if not validate_form.password(password):
@@ -186,6 +206,7 @@ class LogOut(Handler):
 # Routes requests to specific handlers
 app = webapp2.WSGIApplication([("/", MainPage),
                                ("/new", NewPost),
+                               (r"/post/([a-z, A-Z]+)/([0-9]+)", ViewPost),
                                ("/signup", SignUp),
                                ("/login", Login),
                                ("/logout", LogOut),

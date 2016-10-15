@@ -11,6 +11,15 @@ class Post(db.Model):
     last_edit = db.DateTimeProperty(auto_now=True)
 
     @classmethod
+    def get_post(cls, user, db_id):
+        """ Returns a Post object by param:user and param:id
+        if found in database """
+        key = db.Key.from_path("User", user, "Post", int(db_id))
+        post = db.get(key)
+        post.render()
+        return post
+
+    @classmethod
     def view_posts(cls, num=None, parent=None):
         """ Returns a List of num (optional) most
         recent blog posts for all authors """
