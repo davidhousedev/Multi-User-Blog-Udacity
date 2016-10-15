@@ -5,6 +5,7 @@ import webapp2 # Required by Google Cloud Platform for request handling
 
 import models.post as db_post
 import models.user as db_user
+import models.comment as db_comment
 import helpers.cookie as cookie
 import helpers.form_data as validate_form
 import helpers.password as pw_hash
@@ -114,8 +115,9 @@ class ViewPost(Handler):
             return
 
         post = db_post.Post.get_post(user, post_id)
+        comments = db_comment.Comment.get_comments(post)
 
-        self.render("viewpost.html", post=post)
+        self.render("viewpost.html", post=post, comments=comments)
 
 
 class SignUp(Handler):
