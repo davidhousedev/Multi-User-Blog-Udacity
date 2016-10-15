@@ -2,8 +2,6 @@ import webapp2
 
 from google.appengine.ext import db
 
-# Class methods sourced from Intro to Backend course materials
-
 class User(db.Model):
     """ Database model for a user """
     username = db.StringProperty(required=True)
@@ -12,22 +10,23 @@ class User(db.Model):
     created = db.DateTimeProperty(auto_now_add=True)
 
     @classmethod
-    def by_id(cls, id):
+    def by_key(cls, db_id):
         """ Returns a User object by param:id if found in database """
-        return User.get_by_id(id)
+        key = db.Key.from_path("User", int(db_id))
+        return db.get(key)
 
     @classmethod
     def by_name(cls, name):
         """ Returns a User object by param:name if found in database """
-        users = db.GqlQuery("SELECT * FROM User WHERE username='%s'" % name)
-        for user in users:
-            if user.username == name:
-                return user
+        key = db.Key.from_path("User", str(name))
+        return db.get(key)
 
+    # Source: Intro to Backend course materials
     @classmethod
     def register(cls, username, pw_hash, email=None):
         """ Creates user object and writes to database """
-        user = User(username=username,
+        user = User(key_name=username,
+                    username=username,
                     pw_hash=pw_hash,
                     email=email)
         user.put()
