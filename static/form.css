@@ -9,8 +9,12 @@ form {
     color: red;
 }
 
+.write-comment {
+    display: none;
+}
+
 textarea {
-    min-height: 300px;
+    min-height: 200px;
 }
 
 @media screen and (min-width: 550px) {

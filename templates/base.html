@@ -5,10 +5,17 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Blahg</title>
+    {% block jquery %}
+        <!-- Load jQuery here if necessary -->
+    {% endblock %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/main.css">
+
     {% block styles %}
         <!-- Page-specific style sheets will be imported here by Jinja2 -->
+    {% endblock %}
+    {% block javascript %}
+        <!-- Page-specific javascript links will appear here -->
     {% endblock %}
 </head>
 <body class="container">
