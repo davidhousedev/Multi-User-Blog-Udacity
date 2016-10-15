@@ -18,7 +18,7 @@ class Comment(db.Model):
 
         for comment in comments:
             comment.render()
-            comment_arry.apppend(comment)
+            comment_arry.append(comment)
 
         return comment_arry
 

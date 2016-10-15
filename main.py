@@ -117,8 +117,24 @@ class ViewPost(Handler):
 
         post = db_post.Post.get_post(user, post_id)
         comments = db_comment.Comment.get_comments(post)
+        self.render("viewpost.html",
+                    post=post,
+                    comments=comments,
+                    user=self.user)
 
-        self.render("viewpost.html", post=post, comments=comments)
+    def post(self, user, post_id):
+        """ Records posted comment to database """
+        if self.user:
+            content = self.request.get("content")
+            if not content:
+                self.redirect("/%s/%s" % (user, post_id))
+            parent_post = db_post.Post.get_post(user, post_id)
+            comment = db_comment.Comment(parent=parent_post,
+                                         content=content,
+                                         author=self.user.username)
+        comment.put()
+        self.redirect("/post" "/%s/%s" % (user, post_id))
+
 
 
 class SignUp(Handler):
