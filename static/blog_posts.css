@@ -1,5 +1,6 @@
 .post {
     margin-top: 10px;
+    margin-bottom: 60px;
 }
 
 .post:not(:first-child) {
