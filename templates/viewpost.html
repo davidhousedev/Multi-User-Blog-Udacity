@@ -31,10 +31,16 @@
             </div>
             {% if user %}
                 <div class="post-footer row">
-                    <div class="col-xs-12">
+                    <div class="col-xs-6 delete-and-edit">
                         {% if user.username == post.author %}
-                            <a href="/edit/{{post.author}}/{{post.key().id()}}" class="btn btn-outline-warning">Edit</a>
+                            <form class="form-inline" method="post" action="/del/{{post.author}}/{{post.key().id()}}">
+                                <button class="btn btn-outline-danger" type="submit">Delete</button>
+
+                                <a href="/edit/{{post.author}}/{{post.key().id()}}" class="btn btn-outline-warning">Edit</a>
+                            </form>
                         {% endif %}
+                    </div>
+                    <div class="col-xs-6 comment-and-like">
                         <button class="btn btn-outline-primary" id="post-comment">Comment   <i class="fa fa-comment" aria-hidden="true"></i></span></button>
                         <a href="/post/{{post.author}}/{{post.key().id()}}/like/{{user.username}}" class="btn btn-outline-primary">{{post.likes}}  <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></span></a>
                     </div>
