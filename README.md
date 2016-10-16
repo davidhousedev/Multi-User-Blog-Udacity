@@ -1,7 +1,10 @@
 #Multi-User Blog
-This is the third project for the Udacity Full Stack Web Developer Nanodegree.
 
-## Modules
+This blog site allows for the creation of text blogs authored to different users. Users can comment on, edit, and like blog posts. The site is fully responsive and supports all screen sizes.
+
+This project was developed as a part of the Udacity Full Stack Nanodegree program.
+
+## Modules and Frameworks
 
 * __main.py__ - Facilitates request handling, routing, form processing, and database operations
   * __os__ - Facilitates aquisition of Jinja2 templates from server directory
@@ -23,10 +26,35 @@ This is the third project for the Udacity Full Stack Web Developer Nanodegree.
   * __post.py__ - A Post entity will facilitate the creation, writing, and querying of blog posts in the database. Blog posts must be defined with a User as a parent.
   * __user.py__ - A User entity allows a user to log in, log out, create blog posts, and comment. Users do not require parents.
 * __Grunt__ - This project utilizes the Grunt task runner to concatenate and minify CSS files from /static to /static/dist.
+* __Bootstrap__ - The Bootstrap css framework is used extensively to make the site responsive.
 
 ## License
 Read: LICENSE
 
 ## Installation
 
-### Basic
+###Requirements:
+  Google Cloud SDK and Python components: https://cloud.google.com/sdk/downloads
+
+1. Download and install Google Cloud SDK
+2. Use SDK to install Python components
+3. Initiate your SDK with a google account and an app engine project
+4. Clone this repository
+5. Run the app
+  * Locally:
+    1. Navigate to your cloned repo's directory
+    2. run: `dev_appserver.py ./`
+      * App will be accessable at `localhost:8080`
+      * Local datastore will be at `localhost:8000/datastore`
+  * Online:
+    1. Deploy app to your project by running `gcloud app deploy`
+    2. Run `gcloud app browse` to open an window to your project
+      * Cloud datastore will be accessable through your google cloud console
+6. Optional: Install grunt at [http://gruntjs.com/getting-started](http://gruntjs.com/getting-started)
+  * Run `grunt watch` from repo directory to automatically re-minify CSS changes to minified CSS, whenever changes are made
+  * Run `grunt` to manually re-minify CSS
+
+## Author
+David A. House
+davidhousedev
+davidhousedev@gmail.com
