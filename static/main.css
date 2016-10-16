@@ -24,6 +24,24 @@ a, a:hover, a:focus {
     color: blue;
 }
 
+@media screen and (max-width: 553px) {
+    .container {
+        margin-left: 3%;
+        margin-right: 3%;
+    }
+    h1 {
+        font-size: 1.9em;
+        margin-top: 10px;
+    }
+    h3 {
+        font-size: 1.3em;
+    }
+    .btn {
+        padding: 3px, 7px;
+        font-size: 0.75em;
+    }
+}
+
 @media screen and (min-width: 930px) {
     .container {
         max-width: 677px;
