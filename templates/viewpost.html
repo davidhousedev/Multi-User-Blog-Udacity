@@ -12,6 +12,7 @@
 
 {% block javascript %}
     <script src="/static/viewpost.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
 {% endblock %}
 
 {% block content %}
@@ -31,16 +32,12 @@
             </div>
             {% if user %}
                 <div class="post-footer row">
-                    <div class="col-xs-6 delete-and-edit">
+                    <div class="col-xs-12">
                         {% if user.username == post.author %}
-                            <form class="form-inline" method="post" action="/del/{{post.author}}/{{post.key().id()}}">
-                                <button class="btn btn-outline-danger" type="submit">Delete</button>
+                            <button class="btn btn-outline-danger" data-toggle="modal" data-target="#delete-post">Delete</button>
 
-                                <a href="/edit/{{post.author}}/{{post.key().id()}}" class="btn btn-outline-warning">Edit</a>
-                            </form>
+                            <a href="/edit/{{post.author}}/{{post.key().id()}}" class="btn btn-outline-warning">Edit</a>
                         {% endif %}
-                    </div>
-                    <div class="col-xs-6 comment-and-like">
                         <button class="btn btn-outline-primary" id="post-comment">Comment   <i class="fa fa-comment" aria-hidden="true"></i></span></button>
                         <a href="/post/{{post.author}}/{{post.key().id()}}/like/{{user.username}}" class="btn btn-outline-primary">{{post.likes}}  <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></span></a>
                     </div>
@@ -85,5 +82,32 @@
             </section>
         {% endif %}
 
+    {% if user.username == post.author %}
+
+        <div class="modal fade" id="delete-post">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Delete Post</h4>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure you want to delete this post? Once deleted, the post cannot be recovered&hellip;</p>
+              </div>
+              <div class="modal-footer">
+                <form class="form-inline" method="post" action="/del/{{post.author}}/{{post.key().id()}}">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+    {% endif %}
+
     </main>
+
 {% endblock %}

@@ -5,13 +5,12 @@ form {
     width: 90%;
 }
 
-.help-inline {
-    color: red;
+.form-inline {
+    margin-right: 0px;
 }
 
-.comment-and-like {
-    margin-top: 10px;
-    text-align: right;
+.help-inline {
+    color: red;
 }
 
 .write-comment {
