@@ -29,17 +29,8 @@
                     <p class="post-content">{{post._render_text | safe}}</p>
                 </div>
                 <div class="post-footer row">
-                    <a href="/post/{{post.author}}/{{post.key().id()}}"><small class="comment-number">{{post._num_comments}} <i class="fa fa-comment" aria-hidden="true"></i></small></a>
-                    {% if user %}
-                        {% if user.username != post.author %}
-                            <a href="/post/{{post.author}}/{{post.key().id()}}/like/{{user.username}}"><small class="like-number">{{post.likes}}  <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></small></a>
-                        {% else %}
-                            <a href="#"><small class="like-number">{{post.likes}}  <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></small></a>
-                        {% endif %}
-                    {% else %}
-                        <a href="/login"><small class="like-number">{{post.likes}}  <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></small></a>
-                    {% endif %}
-
+                    <small class="comment-number">{{post._num_comments}} <i class="fa fa-comment" aria-hidden="true"></i></small>
+                    <small class="like-number">{{post.likes}}  <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></small>
                 </div>
 
             </article>
