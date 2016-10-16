@@ -139,6 +139,16 @@ class EditPost(Handler):
             return
         self.redirect("/")
 
+class DeletePost(Handler):
+    """ Queries database for a post and deletes it if found """
+    def post(self, author, post_id):
+        """ Queries database for post by author
+        with the id=post_id and deletes if found """
+        if self.user or self.user.username != author:
+            if db_post.Post.delete(author, post_id):
+                self.redirect("/")
+                return
+        self.redirect("/post" "/%s/%s" % (author, post_id))
 
 
 class ViewPost(Handler):
@@ -276,6 +286,7 @@ app = webapp2.WSGIApplication([("/", MainPage),
                                ("/new", NewPost),
                                (r"/post/([a-z, A-Z]+)/([0-9]+)", ViewPost),
                                (r"/edit/([a-z, A-Z]+)/([0-9]+)", EditPost),
+                               (r"/del/([a-z, A-Z]+)/([0-9]+)", DeletePost),
                                (r"/post/([a-z, A-Z]+)/([0-9]+)/like/([a-z, A-Z]+)", LikePost),
                                ("/signup", SignUp),
                                ("/login", Login),

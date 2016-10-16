@@ -37,6 +37,16 @@ class Post(db.Model):
         return False
 
     @classmethod
+    def delete(cls, author, post_id):
+        """ Deletes post at key path: author, post_id """
+        db_key = db.Key.from_path("User", author, "Post", int(post_id))
+        if db_key:
+            db.delete(db_key)
+            return True
+        else:
+            return False
+
+    @classmethod
     def view_posts(cls, num=None, parent=None):
         """ Returns a List of num (optional) most
         recent blog posts for all authors """
