@@ -29,8 +29,8 @@
                     <p class="post-content">{{post._render_text | safe}}</p>
                 </div>
                 <div class="post-footer row">
-                    <small class="comment-number">{{post._num_comments}} <i class="fa fa-comment" aria-hidden="true"></i></small>
-                    <small class="like-number">{{post.likes}}  <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></small>
+                    <a href="/post/{{post.author}}/{{post.key().id()}}"><small class="comment-number">{{post._num_comments}} <i class="fa fa-comment" aria-hidden="true"></i></small>
+                    <small class="like-number">{{post.likes}}  <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></small></a>
                 </div>
 
             </article>
