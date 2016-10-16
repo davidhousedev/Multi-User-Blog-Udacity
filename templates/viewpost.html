@@ -4,6 +4,10 @@
     <script src="/static/jquery-3.1.1.slim.min.js"></script>
 {% endblock %}
 
+{% block bootstrap_js %}
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
+{% endblock %}
+
 {% block styles %}
     <link rel="stylesheet" href="/static/blog_posts.css">
     <link rel="stylesheet" href="/static/form.css">
@@ -12,7 +16,6 @@
 
 {% block javascript %}
     <script src="/static/viewpost.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
 {% endblock %}
 
 {% block content %}
