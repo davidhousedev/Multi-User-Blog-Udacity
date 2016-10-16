@@ -1,3 +1,29 @@
+""" Google Datastore Database Model for a Blog Post
+
+    Properties:
+        author: Blog post author (str)
+        title: Blog post title (str)
+        content: Blog post content (str)
+        likes: Blog's number of likes (int)
+        users_liked: List of users who have liked the blog (list)
+        created: Date and time when comment was posted (DateTime)
+        last_edit: Date and time of most recent edit (DateTime)
+        _render_text: Content of blog with newlines replaced by <br>s (str)
+        _num_comments: Current number of comments for a specific blog post (str)
+
+    Class Methods:
+        get_post(author, post_id) - Returns a single post by author and post_id
+        edit(author, post_id, title=None, content=None) - Edits either title or content of blog post
+        delete(author, post_id) - Deletes a blog post from the database
+        view_posts(num=None, parent=None) - Returns all posts from a specific user
+        like(author, post_id, liker) - Likes or unlikes a post
+
+    Methods:
+        render() - Replaces newlines with <br> in comment content,
+        and stores in variable self._render_text
+        num_comments(num) - Updates post's number of comments to num
+"""
+
 import webapp2
 
 from google.appengine.ext import db
@@ -13,12 +39,13 @@ class Post(db.Model):
     last_edit = db.DateTimeProperty(auto_now=True)
 
     @classmethod
-    def get_post(cls, user, post_id):
-        """ Returns a Post object by param:user and param:id
+    def get_post(cls, author, post_id):
+        """ Returns a Post object by param:author and param:id
         if found in database """
-        key = db.Key.from_path("User", user, "Post", int(post_id))
-        post = db.get(key)
-        post.render()
+        key = db.Key.from_path("User", author,
+                               "Post", int(post_id)) # establish a db key
+        post = db.get(key) # use that key to retrieve a db entity
+        post.render() # replace newlines with <br>
         return post
 
     @classmethod
@@ -28,9 +55,9 @@ class Post(db.Model):
         post = cls.get_post(author, post_id)
         if post:
             if title:
-                post.title = title
+                post.title = title # edit title if changed
             if content:
-                post.content = content
+                post.content = content # edit content if changed
             post.put()
             return True
         return False
@@ -40,7 +67,7 @@ class Post(db.Model):
         """ Deletes post at key path: author, post_id """
         db_key = db.Key.from_path("User", author, "Post", int(post_id))
         if db_key:
-            db.delete(db_key)
+            db.delete(db_key) # delete the entity matching db_key
             return True
         else:
             return False
@@ -50,13 +77,13 @@ class Post(db.Model):
         """ Returns a List of num (optional) most
         recent blog posts for all authors """
         post_list = []
-        posts = Post.all()
+        posts = cls.all() # query db for all Posts
         if parent:
-            posts.ancestor(parent)
-        posts.order("-created")
+            posts.ancestor(parent) # filter query by author
+        posts.order("-created") # order posts, most recent first
 
         for post in posts.run(limit=num):
-            post.render()
+            post.render() # replace newlines with <br>
             post_list.append(post)
         return post_list
 
@@ -65,12 +92,10 @@ class Post(db.Model):
         """ Either like, or unlike, a post depending on
         whether or not param:liker has already liked the post """
         post = cls.get_post(author, post_id)
-        if liker in post.users_liked:
-            #unlike post
+        if liker in post.users_liked: # if has this user already liked this post
             post.users_liked.remove(str(liker))
             post.likes -= 1
         else:
-            #like post
             post.likes += 1
             post.users_liked.append(str(liker))
         post.put()

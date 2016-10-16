@@ -22,9 +22,11 @@ This is the third project for the Udacity Full Stack Web Developer Nanodegree.
   * __comment.py__ - A Comment entity will contain the text of a comment to a blog post. Comments must be defined with a blog post as a parent.
   * __post.py__ - A Post entity will facilitate the creation, writing, and querying of blog posts in the database. Blog posts must be defined with a User as a parent.
   * __user.py__ - A User entity allows a user to log in, log out, create blog posts, and comment. Users do not require parents.
-
+* __Grunt__ - This project utilizes the Grunt task runner to concatenate and minify CSS files from /static to /static/dist.
 
 ## License
 Read: LICENSE
 
 ## Installation
+
+### Basic

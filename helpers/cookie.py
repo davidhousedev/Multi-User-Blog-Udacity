@@ -1,6 +1,13 @@
-""" Handles the creation and validation of user authentication cookies
+""" Handles hashing and verification of user passwords
 
 Examples:
+    make("some_username")
+        * Returns a secure cookie of the format:
+        "some_username|hmac_encrypted_username"
+
+    validate("secure_cookie")
+        * Returns the username in the secure cookie, if the cookie is valid.
+        Otherwise, returns None.
 
 
 """

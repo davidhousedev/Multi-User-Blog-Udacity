@@ -5,20 +5,16 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Blahg</title>
-    {% block jquery %}
-        <!-- Load jQuery here if necessary -->
+    {% block jquery %} <!-- Load jQuery here if necessary -->
     {% endblock %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
-    {% block bootstrap_js %}
-        <!-- If specified in template, bootstrap js will load here -->
+    {% block bootstrap_js %} <!-- If specified in template, bootstrap js will load here -->
     {% endblock %}
     <link rel="stylesheet" href="/static/font-awesome-4.6.3/css/font-awesome.min.css">
 
-    {% block styles %}
-        <!-- Page-specific style sheets will be imported here by Jinja2 -->
+    {% block styles %} <!-- Page-specific style sheets will be imported here by Jinja2 -->
     {% endblock %}
-    {% block javascript %}
-        <!-- Page-specific javascript links will appear here -->
+    {% block javascript %} <!-- Page-specific javascript files will appear here -->
     {% endblock %}
 </head>
 <body class="container">
@@ -37,17 +33,10 @@
         {% endif %}
     </div>
 </header>
-{% block message %}
-    <!-- If there is an alert message, it will be rendered here -->
+{% block message %} <!-- If there is an alert message, it will be rendered here -->
 {% endblock %}
 
-{% block content %}
-    <!-- Main content of the page will be imported here -->
-{% endblock %}
-
-
-{% block footer %}
-    <!-- Page footer will be imported here -->
+{% block content %} <!-- Main content of the page will be imported here -->
 {% endblock %}
 
 </body>

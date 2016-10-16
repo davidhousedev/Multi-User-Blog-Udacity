@@ -3,12 +3,12 @@ import os
 import jinja2 # HTML Templating framework
 import webapp2 # Required by Google Cloud Platform for request handling
 
-import models.post as db_post
-import models.user as db_user
-import models.comment as db_comment
-import helpers.cookie as cookie
-import helpers.form_data as validate_form
-import helpers.password as pw_hash
+import models.post as db_post # facilitates creation and query for blog posts
+import models.user as db_user # facilitates creation and query for users
+import models.comment as db_comment # facilitates queries for comments
+import helpers.cookie as cookie # creates and validates authentication cookies
+import helpers.form_data as validate_form # validates user's form data
+import helpers.password as pw_hash # creates and validates hashed passwords
 
 # Jinja environment logic sourced from Intro to Backend course material
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
@@ -62,14 +62,14 @@ class Handler(webapp2.RequestHandler):
         If found, queries database for record of that user to store in self.user """
         webapp2.RequestHandler.initialize(self, *a, **kw)
         username = self.read_secure_cookie('username')
-        self.user = db_user.User.by_name(username)
+        self.user = db_user.User.by_username(username)
 
 class MainPage(Handler):
     """ Default HTTP Request Handler """
     def get(self, msg=None):
         """ Display 10 most recent blog posts """
 
-        posts = db_post.Post.view_posts(10)
+        posts = db_post.Post.view_posts()
 
         # Get the number of comments for each post,
         # and store as int in each post.
@@ -126,6 +126,7 @@ class EditPost(Handler):
     """ Renders post editing form,
     and writes post edits to database """
     def get(self, author, post_id):
+        """ Open html view used to edit post """
         if not self.user:
             self.redirect("/login")
 
@@ -134,6 +135,8 @@ class EditPost(Handler):
             self.render("editpost.html", post=post)
 
     def post(self, author, post_id):
+        """ If current user is author,
+        edit posts according to changes made in edit view """
         if not self.user:
             self.redirect("/login")
 
@@ -149,14 +152,13 @@ class EditPost(Handler):
 class DeletePost(Handler):
     """ Queries database for a post and deletes it if found """
     def post(self, author, post_id):
-        """ Queries database for post by author
-        with the id=post_id and deletes if found """
-        if self.user or self.user.username != author:
+        """ If current user is author, delete's Post:post_id.
+        Otherwise, redirects back to post """
+        if self.user.username == author:
             if db_post.Post.delete(author, post_id):
                 self.redirect("/")
                 return
         self.redirect("/post" "/%s/%s" % (author, post_id))
-
 
 class ViewPost(Handler):
     """ Renders a single blog post via a permalink """
@@ -198,9 +200,6 @@ class LikePost(Handler):
 
         self.redirect("/post" "/%s/%s" % (post_author, post_id))
 
-
-
-
 class SignUp(Handler):
     """ Handles all requests pertaining to signing up new users """
     def show_form(self, form_data=None):
@@ -214,7 +213,6 @@ class SignUp(Handler):
     def post(self):
         """ If user input from form is valid, create new user in database """
         # Logic inspired by Intro to Backend course materials
-        #TODO: Abstract away this code to form_data.py
         error_flag = False
         username = self.request.get("username")
         password = self.request.get("password")
@@ -228,7 +226,7 @@ class SignUp(Handler):
             params["error_username"] = "That is not a valid username"
             error_flag = True
 
-        if db_user.User.by_name(username):
+        if db_user.User.by_username(username):
             params["error_username"] = "That user already exists"
             error_flag = True
 
@@ -258,15 +256,16 @@ class Login(Handler):
         self.render("login.html")
 
     def post(self):
+        """ Validate login information with user database record """
         username = self.request.get("username")
         password = self.request.get("password")
 
         params = dict(username=username)
 
         if validate_form.username(username) and validate_form.password(password):
-            user = db_user.User.by_name(username)
-            if user:
-                if pw_hash.validate(username, password, user.pw_hash):
+            user = db_user.User.by_username(username)
+            if user: # if username is valid
+                if pw_hash.validate(username, password, user.pw_hash): # if password is valid
                     self.login(user)
                     self.redirect("/welcome")
                     return
@@ -277,16 +276,6 @@ class LogOut(Handler):
     def get(self):
         self.logout()
         self.redirect("/")
-
-
-
-
-
-
-
-
-
-
 
 # Routes requests to specific handlers
 app = webapp2.WSGIApplication([("/new", NewPost),
