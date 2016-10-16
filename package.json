@@ -1,0 +1,30 @@
+{
+  "name": "multi-user-blog-udacity",
+  "version": "1.0.0",
+  "description": "Basic multi-user blog written in python for the Google App Platform and Datastore. Allows for commenting, liking, and post editing. Templates are made in Jinja2 and Bootstrap.",
+  "main": "main.py",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidhousedev/Multi-User-Blog-Udacity.git"
+  },
+  "keywords": [
+    "Jinja2",
+    "Bootstrap",
+    "Google",
+    "Cloud",
+    "Platform",
+    "Datastore",
+    "Blog",
+    "Authentication",
+    "Cookies"
+  ],
+  "author": "David House (davidhousedev)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davidhousedev/Multi-User-Blog-Udacity/issues"
+  },
+  "homepage": "https://github.com/davidhousedev/Multi-User-Blog-Udacity#readme"
+}
