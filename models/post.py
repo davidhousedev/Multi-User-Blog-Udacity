@@ -63,13 +63,17 @@ class Post(db.Model):
 
     @classmethod
     def like(cls, author, post_id, liker):
-        """ If param:liker has not already liked Post:post_id,
-        increase Post likes by 1, otherwise return false """
+        """ Either like, or unlike, a post depending on
+        whether or not param:liker has already liked the post """
         post = cls.get_post(author, post_id)
         if liker in post.users_liked:
-            return False
-        post.likes += 1
-        post.users_liked.append(str(liker))
+            #unlike post
+            post.users_liked.remove(str(liker))
+            post.likes -= 1
+        else:
+            #like post
+            post.likes += 1
+            post.users_liked.append(str(liker))
         post.put()
         return True
 
