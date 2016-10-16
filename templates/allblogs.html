@@ -4,6 +4,14 @@
     <link rel="stylesheet" href="/static/blog_posts.css">
 {% endblock %}
 
+{% block message %}
+    {% if message %}
+        <div class="alert alert-info" role="alert">
+          {{message}}
+        </div>
+    {% endif %}
+{% endblock %}
+
 {% block content %}
     <main class="blog-posts">
         {% for post in posts %}

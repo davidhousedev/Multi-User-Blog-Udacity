@@ -26,7 +26,8 @@
 <header class="header row">
     <div class="title col-xs-4">
         <a href="/"><h1>Blahg</h1></a>
-    </div>
+
+        </div>
     <div class="user-options col-xs-8">
         {% if current_user %}
             <a class="btn btn-outline-primary" href="/new">New Post</a>
@@ -37,6 +38,9 @@
         {% endif %}
     </div>
 </header>
+{% block message %}
+    <!-- If there is an alert message, it will be rendered here -->
+{% endblock %}
 
 {% block content %}
     <!-- Main content of the page will be imported here -->

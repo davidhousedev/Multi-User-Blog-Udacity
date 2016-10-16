@@ -66,7 +66,7 @@ class Handler(webapp2.RequestHandler):
 
 class MainPage(Handler):
     """ Default HTTP Request Handler """
-    def get(self):
+    def get(self, msg=None):
         """ Display 10 most recent blog posts """
 
         posts = db_post.Post.view_posts(10)
@@ -77,7 +77,14 @@ class MainPage(Handler):
             comment_arry = db_comment.Comment.get_comments(post)
             post.num_comments(len(comment_arry))
 
-        self.render("allblogs.html", posts=posts, user=self.user)
+        if msg and self.user:
+            if msg == "welcome":
+                msg = "Welcome, %s" % self.user.username
+
+        self.render("allblogs.html",
+                    posts=posts,
+                    user=self.user,
+                    message=msg)
 
 class NewPost(Handler):
     """ Handles all requests related to creating new blog posts """
@@ -106,7 +113,7 @@ class NewPost(Handler):
                                     author=self.user.username,
                                     title=form_data["title"],
                                     likes=0,
-                                    users_liked = [],
+                                    users_liked=[],
                                     content=form_data["content"])
             new_post.put()
             self.redirect("/post/%s/%s" %(self.user.username,
@@ -242,7 +249,7 @@ class SignUp(Handler):
             hashed_pw = pw_hash.make(username, password)
             usr = db_user.User.register(username, hashed_pw, email)
             self.set_secure_cookie("username", usr.username)
-            self.redirect("/")
+            self.redirect("/welcome")
 
 class Login(Handler):
     """ Renders login screen to user
@@ -261,7 +268,7 @@ class Login(Handler):
             if user:
                 if pw_hash.validate(username, password, user.pw_hash):
                     self.login(user)
-                    self.redirect("/")
+                    self.redirect("/welcome")
                     return
         params["login_error"] = "Invalid username or password"
         self.render("login.html", **params)
@@ -282,8 +289,7 @@ class LogOut(Handler):
 
 
 # Routes requests to specific handlers
-app = webapp2.WSGIApplication([("/", MainPage),
-                               ("/new", NewPost),
+app = webapp2.WSGIApplication([("/new", NewPost),
                                (r"/post/([a-z, A-Z]+)/([0-9]+)", ViewPost),
                                (r"/edit/([a-z, A-Z]+)/([0-9]+)", EditPost),
                                (r"/del/([a-z, A-Z]+)/([0-9]+)", DeletePost),
@@ -291,6 +297,8 @@ app = webapp2.WSGIApplication([("/", MainPage),
                                ("/signup", SignUp),
                                ("/login", Login),
                                ("/logout", LogOut),
+                               (r"/([a-z, A-Z]+)", MainPage),
+                               (r"/*", MainPage),
                               ],
                               debug=True
                               )

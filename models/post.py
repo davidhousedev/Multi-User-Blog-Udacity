@@ -1,8 +1,7 @@
 import webapp2
 
 from google.appengine.ext import db
-#TODO: Add 'likes'
-#TODO: Add post edit capabilities
+
 class Post(db.Model):
     """ Database model for a blog post """
     author = db.StringProperty(required=True)
