@@ -1,6 +1,6 @@
 #Multi-User Blog
 
-This blog site allows for the creation of text blogs authored to different users. Users can comment on, edit, and like blog posts. The site is fully responsive and supports all screen sizes.
+This blog site allows for the creation of text blogs authored to different users. Users can comment on, edit, and like blog posts. The site is fully responsive and supports all screen sizes. It was developed specifically for implementation on Google's Cloud Platform.
 
 This project was developed as a part of the Udacity Full Stack Nanodegree program.
 
@@ -28,13 +28,12 @@ This project was developed as a part of the Udacity Full Stack Nanodegree progra
 * __Grunt__ - This project utilizes the Grunt task runner to concatenate and minify CSS files from /static to /static/dist.
 * __Bootstrap__ - The Bootstrap css framework is used extensively to make the site responsive.
 
-## License
-Read: LICENSE
 
 ## Installation
 
 ###Requirements:
-  Google Cloud SDK and Python components: https://cloud.google.com/sdk/downloads
+  * Python 2.7.9
+  * Google Cloud SDK and Python components: https://cloud.google.com/sdk/downloads
 
 1. Download and install Google Cloud SDK
 2. Use SDK to install Python components
@@ -55,6 +54,18 @@ Read: LICENSE
   * Run `grunt` to manually re-minify CSS
 
 ## Author
+
 David A. House
 davidhousedev
 davidhousedev@gmail.com
+
+
+## License
+
+Copyright (c) 2016 David Alexander House
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
