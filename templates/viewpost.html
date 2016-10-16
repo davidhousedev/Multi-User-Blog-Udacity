@@ -35,8 +35,8 @@
                         {% if user.username == post.author %}
                             <a href="/edit/{{post.author}}/{{post.key().id()}}" class="btn btn-outline-warning">Edit</a>
                         {% endif %}
-                        <button class="btn btn-outline-primary" id="post-comment">Comment   <span class="entypo-comment"></span></button>
-                        <a href="/post/{{post.author}}/{{post.key().id()}}/like/{{user.username}}" class="btn btn-outline-primary">{{post.likes}}  <span class="entypo-thumbs-up"></span></a>
+                        <button class="btn btn-outline-primary" id="post-comment">Comment   <i class="fa fa-comment" aria-hidden="true"></i></span></button>
+                        <a href="/post/{{post.author}}/{{post.key().id()}}/like/{{user.username}}" class="btn btn-outline-primary">{{post.likes}}  <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></span></a>
                     </div>
                 </div>
             {% endif %}
