@@ -32,6 +32,9 @@
             {% if user %}
                 <div class="post-footer row">
                     <div class="col-xs-12">
+                        {% if user.username == post.author %}
+                            <a href="/edit/{{post.author}}/{{post.key().id()}}" class="btn btn-outline-warning">Edit</a>
+                        {% endif %}
                         <button class="btn btn-outline-primary" id="post-comment">Comment   <span class="entypo-comment"></span></button>
                         <a href="/post/{{post.author}}/{{post.key().id()}}/like/{{user.username}}" class="btn btn-outline-primary">{{post.likes}}  <span class="entypo-thumbs-up"></span></a>
                     </div>

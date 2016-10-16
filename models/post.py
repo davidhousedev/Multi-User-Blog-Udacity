@@ -14,13 +14,27 @@ class Post(db.Model):
     last_edit = db.DateTimeProperty(auto_now=True)
 
     @classmethod
-    def get_post(cls, user, db_id):
+    def get_post(cls, user, post_id):
         """ Returns a Post object by param:user and param:id
         if found in database """
-        key = db.Key.from_path("User", user, "Post", int(db_id))
+        key = db.Key.from_path("User", user, "Post", int(post_id))
         post = db.get(key)
         post.render()
         return post
+
+    @classmethod
+    def edit(cls, author, post_id, title=None, content=None):
+        """ Edits title and/or content of specified post
+        and writes changes to database """
+        post = cls.get_post(author, post_id)
+        if post:
+            if title:
+                post.title = title
+            if content:
+                post.content = content
+            post.put()
+            return True
+        return False
 
     @classmethod
     def view_posts(cls, num=None, parent=None):
@@ -38,10 +52,10 @@ class Post(db.Model):
         return post_list
 
     @classmethod
-    def like(cls, author, db_id, liker):
-        """ If param:liker has not already liked Post:db_id,
+    def like(cls, author, post_id, liker):
+        """ If param:liker has not already liked Post:post_id,
         increase Post likes by 1, otherwise return false """
-        post = cls.get_post(author, db_id)
+        post = cls.get_post(author, post_id)
         if liker in post.users_liked:
             return False
         post.likes += 1

@@ -115,6 +115,32 @@ class NewPost(Handler):
             form_data["error"] = "Both a title and content are required"
             self.show_form(form_data)
 
+class EditPost(Handler):
+    """ Renders post editing form,
+    and writes post edits to database """
+    def get(self, author, post_id):
+        if not self.user:
+            self.redirect("/login")
+
+        post = db_post.Post.get_post(author, post_id)
+        if post and self.user.username == author:
+            self.render("editpost.html", post=post)
+
+    def post(self, author, post_id):
+        if not self.user:
+            self.redirect("/login")
+
+        if self.user.username == author:
+            title = self.request.get("title")
+            content = self.request.get("content")
+
+            db_post.Post.edit(author, post_id, title, content)
+            self.redirect("/post" "/%s/%s" % (author, post_id))
+            return
+        self.redirect("/")
+
+
+
 class ViewPost(Handler):
     """ Renders a single blog post via a permalink """
     def get(self, user, post_id):
@@ -249,6 +275,7 @@ class LogOut(Handler):
 app = webapp2.WSGIApplication([("/", MainPage),
                                ("/new", NewPost),
                                (r"/post/([a-z, A-Z]+)/([0-9]+)", ViewPost),
+                               (r"/edit/([a-z, A-Z]+)/([0-9]+)", EditPost),
                                (r"/post/([a-z, A-Z]+)/([0-9]+)/like/([a-z, A-Z]+)", LikePost),
                                ("/signup", SignUp),
                                ("/login", Login),
