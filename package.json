@@ -26,5 +26,8 @@
   "bugs": {
     "url": "https://github.com/davidhousedev/Multi-User-Blog-Udacity/issues"
   },
-  "homepage": "https://github.com/davidhousedev/Multi-User-Blog-Udacity#readme"
+  "homepage": "https://github.com/davidhousedev/Multi-User-Blog-Udacity#readme",
+  "devDependencies": {
+    "grunt-contrib-watch": "^1.0.0"
+  }
 }

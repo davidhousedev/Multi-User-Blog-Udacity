@@ -18,8 +18,16 @@ module.exports = function(grunt) {
             }],
         },
     },
+    watch: {
+        files: ['static/*.css'],
+        tasks: ['cssmin'],
+        options: {
+            interrupt: true,
+        },
+    },
   });
 
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
 
   grunt.registerTask('default',[
