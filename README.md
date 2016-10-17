@@ -6,10 +6,18 @@ This project was developed as a part of the Udacity Full Stack Nanodegree progra
 
 ## Modules and Frameworks
 
-* __main.py__ - Facilitates request handling, routing, form processing, and database operations
-  * __os__ - Facilitates aquisition of Jinja2 templates from server directory
-  * __Jinja2__ - HTML Templating framework
-  * __re__ - Reads regular expressions in URL paths
+* __main.py__ - Imports handlers and routes requests
+* __handlers__ - Contains all request handlers
+  * __deletepost.py__ - Queries Database for a specified post. If found, deletes that post
+  * __editpost.py__ - Renders post edit form, and writes edits to database
+  * __handler.py__ - This handler contains methods used across many pages. All other handlers inherit form this class.
+  * __likepost.py__ - Facilitates liking and unliking of posts
+  * __login.py__ - Renders login form and validates usernames and passwords
+  * __logout.py__ - Clears authentication cookie
+  * __mainpage.py__ - Renders home page, showing all blogs posted by all users
+  * __newpost.py__ - Renders form for writing a new post, and writes post to database
+  * __signup.py__ - Renders form for creating new users, and writes new users to database
+  * __viewpost.py__ - Displays a single post, and facilitates post comment creation
 * __helpers__ - Functions to assist with primary application flow
   * __cookie.py__ - Creates and validates secure cookies using HMAC encryption and a server-define secure secret.
     * __hmac__ - Encrypts user authentication cookies with a server secret
@@ -27,6 +35,9 @@ This project was developed as a part of the Udacity Full Stack Nanodegree progra
   * __user.py__ - A User entity allows a user to log in, log out, create blog posts, and comment. Users do not require parents.
 * __Grunt__ - This project utilizes the Grunt task runner to concatenate and minify CSS files from /static to /static/dist.
 * __Bootstrap__ - The Bootstrap css framework is used extensively to make the site responsive.
+* __os__ - Facilitates aquisition of Jinja2 templates from server directory
+* __Jinja2__ - HTML Templating framework
+* __re__ - Reads regular expressions in URL paths
 
 
 ## Installation
