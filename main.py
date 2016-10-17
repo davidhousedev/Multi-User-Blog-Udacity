@@ -147,7 +147,7 @@ class EditPost(Handler):
             db_post.Post.edit(author, post_id, title, content)
             self.redirect("/post" "/%s/%s" % (author, post_id))
             return
-        self.redirect("/")
+        self.redirect("/post" "/%s/%s" % (author, post_id))
 
 class DeletePost(Handler):
     """ Queries database for a post and deletes it if found """
