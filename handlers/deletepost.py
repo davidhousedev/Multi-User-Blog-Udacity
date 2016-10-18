@@ -1,7 +1,7 @@
 """ Queries Database for a specified post. If found, deletes that post """
 
 import handler as handler
-import models.post as db_post # facilitates creation and query for blog posts
+import models.post as db_post  # facilitates creation and query for blog posts
 
 class DeletePost(handler.Handler):
     """ Queries database for a post and deletes it if found """

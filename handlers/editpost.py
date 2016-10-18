@@ -6,7 +6,7 @@
  """
 
 import handler as handler
-import models.post as db_post # facilitates creation and query for blog posts
+import models.post as db_post  # facilitates creation and query for blog posts
 
 class EditPost(handler.Handler):
     """ Renders post editing form,

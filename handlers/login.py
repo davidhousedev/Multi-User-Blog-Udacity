@@ -5,9 +5,9 @@
 
  """
 import handler as handler
-import helpers.form_data as validate_form # validates user's form data
-import helpers.password as pw_hash # creates and validates hashed passwords
-import models.user as db_user # facilitates creation and query for users
+import helpers.form_data as validate_form  # validates user's form data
+import helpers.password as pw_hash  # creates and validates hashed passwords
+import models.user as db_user  # facilitates creation and query for users
 
 class Login(handler.Handler):
     """ Renders login screen to user
@@ -24,8 +24,8 @@ class Login(handler.Handler):
 
         if validate_form.username(username) and validate_form.password(password):
             user = db_user.User.by_username(username)
-            if user: # if username is valid
-                if pw_hash.validate(username, password, user.pw_hash): # if password is valid
+            if user:  # if username is valid
+                if pw_hash.validate(username, password, user.pw_hash):  # if password is valid
                     self.login(user)
                     self.redirect("/welcome")
                     return

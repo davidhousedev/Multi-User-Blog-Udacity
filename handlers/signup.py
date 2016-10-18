@@ -7,9 +7,9 @@
 
 
 import handler as handler
-import models.user as db_user # facilitates creation and query for users
-import helpers.form_data as validate_form # validates user's form data
-import helpers.password as pw_hash # creates and validates hashed passwords
+import models.user as db_user  # facilitates creation and query for users
+import helpers.form_data as validate_form  # validates user's form data
+import helpers.password as pw_hash  # creates and validates hashed passwords
 
 class SignUp(handler.Handler):
     """ Handles all requests pertaining to signing up new users """
@@ -23,7 +23,7 @@ class SignUp(handler.Handler):
 
     def post(self):
         """ If user input from form is valid, create new user in database """
-        # Logic inspired by Intro to Backend course materials
+         # Logic inspired by Intro to Backend course materials
         error_flag = False
         username = self.request.get("username")
         password = self.request.get("password")

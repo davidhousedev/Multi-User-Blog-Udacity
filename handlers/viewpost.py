@@ -6,16 +6,15 @@
 """
 
 import handler as handler
-import models.post as db_post # facilitates creation and query for blog posts
-import models.comment as db_comment # facilitates queries for comments
+import models.post as db_post  # facilitates creation and query for blog posts
+import models.comment as db_comment  # facilitates queries for comments
 
 class ViewPost(handler.Handler):
     """ Renders a single blog post via a permalink """
     def get(self, user, post_id):
         """ Displays a single post """
         if not post_id and user:
-            self.redirect("/")
-            return
+            return self.redirect("/")
 
         post = db_post.Post.get_post(user, post_id)
         comments = db_comment.Comment.get_comments(post)
@@ -29,8 +28,10 @@ class ViewPost(handler.Handler):
         if self.user:
             content = self.request.get("content")
             if not content:
-                self.redirect("/%s/%s" % (user, post_id))
+                return self.redirect("/%s/%s" % (user, post_id))
             parent_post = db_post.Post.get_post(user, post_id)
+            post_comments = db_comment.Comment.get_comments(parent_post)
+            num_comments = len(post_comments)
             comment = db_comment.Comment(parent=parent_post,
                                          content=content,
                                          author=self.user.username)

@@ -13,12 +13,12 @@ All other handlers inherit form this class.
 
 """
 import os
-import jinja2 # HTML Templating framework
-import webapp2 # Required by Google Cloud Platform for request handling
+import jinja2  # HTML Templating framework
+import webapp2  # Required by Google Cloud Platform for request handling
 
-import models.user as db_user # facilitates creation and query for users
+import models.user as db_user  # facilitates creation and query for users
 
-import helpers.cookie as cookie # creates and validates authentication cookies
+import helpers.cookie as cookie  # creates and validates authentication cookies
 
 
 # Jinja environment logic sourced from Intro to Backend course material

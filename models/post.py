@@ -43,9 +43,9 @@ class Post(db.Model):
         """ Returns a Post object by param:author and param:id
         if found in database """
         key = db.Key.from_path("User", author,
-                               "Post", int(post_id)) # establish a db key
-        post = db.get(key) # use that key to retrieve a db entity
-        post.render() # replace newlines with <br>
+                               "Post", int(post_id))  # establish a db key
+        post = db.get(key)  # use that key to retrieve a db entity
+        post.render()  # replace newlines with <br>
         return post
 
     @classmethod
@@ -55,9 +55,9 @@ class Post(db.Model):
         post = cls.get_post(author, post_id)
         if post:
             if title:
-                post.title = title # edit title if changed
+                post.title = title  # edit title if changed
             if content:
-                post.content = content # edit content if changed
+                post.content = content  # edit content if changed
             post.put()
             return True
         return False
@@ -67,7 +67,7 @@ class Post(db.Model):
         """ Deletes post at key path: author, post_id """
         db_key = db.Key.from_path("User", author, "Post", int(post_id))
         if db_key:
-            db.delete(db_key) # delete the entity matching db_key
+            db.delete(db_key)  # delete the entity matching db_key
             return True
         else:
             return False
@@ -77,13 +77,13 @@ class Post(db.Model):
         """ Returns a List of num (optional) most
         recent blog posts for all authors """
         post_list = []
-        posts = cls.all() # query db for all Posts
+        posts = cls.all()  # query db for all Posts
         if parent:
-            posts.ancestor(parent) # filter query by author
-        posts.order("-created") # order posts, most recent first
+            posts.ancestor(parent)  # filter query by author
+        posts.order("-created")  # order posts, most recent first
 
         for post in posts.run(limit=num):
-            post.render() # replace newlines with <br>
+            post.render()  # replace newlines with <br>
             post_list.append(post)
         return post_list
 
@@ -92,7 +92,7 @@ class Post(db.Model):
         """ Either like, or unlike, a post depending on
         whether or not param:liker has already liked the post """
         post = cls.get_post(author, post_id)
-        if liker in post.users_liked: # if has this user already liked this post
+        if liker in post.users_liked:  # if has this user already liked this post
             post.users_liked.remove(str(liker))
             post.likes -= 1
         else:

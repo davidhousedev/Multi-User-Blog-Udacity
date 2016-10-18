@@ -1,7 +1,7 @@
 """ Facilitates liking and unliking of posts """
 
 import handler as handler
-import models.post as db_post # facilitates creation and query for blog posts
+import models.post as db_post  # facilitates creation and query for blog posts
 
 class LikePost(handler.Handler):
     """ Increase or decrease post likes by 1 """

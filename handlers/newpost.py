@@ -6,7 +6,7 @@
 """
 
 import handler as handler
-import models.post as db_post # facilitates creation and query for blog posts
+import models.post as db_post  # facilitates creation and query for blog posts
 
 class NewPost(handler.Handler):
     """ Handles all requests related to creating new blog posts """

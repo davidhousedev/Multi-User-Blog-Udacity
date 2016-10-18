@@ -25,10 +25,10 @@ class User(db.Model):
     @classmethod
     def by_username(cls, username):
         """ Returns a User object by param:username if found in database """
-        key = db.Key.from_path("User", str(username)) # generates key path to specific user
-        return db.get(key) # returns db entity corresponding to key
+        key = db.Key.from_path("User", str(username))  # generates key path to specific user
+        return db.get(key)  # returns db entity corresponding to key
 
-    # Source: Intro to Backend course materials
+     # Source: Intro to Backend course materials
     @classmethod
     def register(cls, username, pw_hash, email=None):
         """ Creates user object and writes to database """
