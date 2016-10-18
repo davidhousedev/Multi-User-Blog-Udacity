@@ -1,6 +1,6 @@
 """ Routes requests to their requisite handlers """
 
-import webapp2 # Required by Google Cloud Platform for request handling
+import webapp2  # Required by Google Cloud Platform for request handling
 
 # Handlers:
 import handlers.handler as handler
@@ -10,6 +10,7 @@ import handlers.editpost as editpost
 import handlers.deletepost as deletepost
 import handlers.viewpost as viewpost
 import handlers.likepost as likepost
+import handlers.editcomment as editcomment
 import handlers.signup as signup
 import handlers.login as login
 import handlers.logout as logout
@@ -17,6 +18,7 @@ import handlers.logout as logout
 # Routes requests to specific handlers
 app = webapp2.WSGIApplication([("/new", newpost.NewPost),
                                (r"/post/([a-z, A-Z]+)/([0-9]+)", viewpost.ViewPost),
+                               (r"/edit/comment/([a-z, A-Z]+)/([0-9]+)/([0-9]+)", editcomment.EditComment),
                                (r"/edit/([a-z, A-Z]+)/([0-9]+)", editpost.EditPost),
                                (r"/del/([a-z, A-Z]+)/([0-9]+)", deletepost.DeletePost),
                                (r"/post/([a-z, A-Z]+)/([0-9]+)/like/([a-z, A-Z]+)", likepost.LikePost),
