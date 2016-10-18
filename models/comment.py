@@ -49,6 +49,17 @@ class Comment(db.Model):
         else:
             return False
 
+    @classmethod
+    def edit(cls, author, post_id, comment_id, content=None):
+        """ Edits title and/or content of specified comment
+        and writes changes to database """
+        comment = cls.get_by_id(author, post_id, comment_id)
+        if comment:
+            if content:
+                comment.content = content  # edit content if changed
+            comment.put()
+            return True
+        return False
 
 
     def render(self):
