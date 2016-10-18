@@ -28,14 +28,28 @@ class Comment(db.Model):
         """ Returns an array of Comment entities
         for a parent Blog post """
         comment_arry = []
-        comments = cls.all().ancestor(parent) # get all commentts for a post
-        comments.order("-created") # order from most to least recent
+        comments = cls.all().ancestor(parent)  # get all commentts for a post
+        comments.order("-created")  # order from most to least recent
 
         for comment in comments:
-            comment.render() # replace newlines with <br>
+            comment.render()  # replace newlines with <br>
             comment_arry.append(comment)
 
         return comment_arry
+
+    @classmethod
+    def get_by_id(cls, author, post_id, comment_id):
+        """ Returns a comment entity
+        corresponding to a post and comment id """
+        key = db.Key.from_path("User", author,
+                               "Post", int(post_id),
+                               "Comment", int(comment_id))
+        if key:
+            return key.get()  # retrieve Comment entity form db key
+        else:
+            return False
+
+
 
     def render(self):
         """ Replaces newlines in post content with <br>
