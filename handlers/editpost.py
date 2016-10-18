@@ -29,8 +29,6 @@ class EditPost(handler.Handler):
         if self.user.username == author:
             title = self.request.get("title")
             content = self.request.get("content")
-
             db_post.Post.edit(author, post_id, title, content)
-            self.redirect("/post" "/%s/%s" % (author, post_id))
-            return
+
         self.redirect("/post" "/%s/%s" % (author, post_id))
