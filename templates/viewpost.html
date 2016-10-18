@@ -78,6 +78,11 @@
                                 <p class="comment-content">{{comment.content}}</p>
                             </div>
                         </div>
+                        <div class="comment-footer-row row">
+                            <div class="col-xs-12">
+                                <a href="/edit/comment/{{post.author}}/{{post.key().id()}}/{{comment.key().id()}}" class="btn btn-outline-warning btn-sm">Edit</a>
+                            </div>
+                        </div>
                     </div>
                 {% endfor %}
             </section>

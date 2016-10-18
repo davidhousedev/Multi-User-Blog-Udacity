@@ -45,7 +45,7 @@ class Comment(db.Model):
                                "Post", int(post_id),
                                "Comment", int(comment_id))
         if key:
-            return key.get()  # retrieve Comment entity form db key
+            return db.get(key)  # retrieve Comment entity form db key
         else:
             return False
 
