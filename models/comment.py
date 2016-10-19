@@ -17,7 +17,9 @@ import webapp2
 
 from google.appengine.ext import db
 
+
 class Comment(db.Model):
+
     """ Database model for a user """
     content = db.TextProperty(required=True)
     author = db.StringProperty(required=True)
@@ -72,7 +74,6 @@ class Comment(db.Model):
             return True
         else:
             return False
-
 
     def render(self):
         """ Replaces newlines in post content with <br>

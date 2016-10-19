@@ -28,7 +28,9 @@ import webapp2
 
 from google.appengine.ext import db
 
+
 class Post(db.Model):
+
     """ Database model for a blog post """
     author = db.StringProperty(required=True)
     title = db.StringProperty(required=True)
@@ -92,7 +94,8 @@ class Post(db.Model):
         """ Either like, or unlike, a post depending on
         whether or not param:liker has already liked the post """
         post = cls.get_post(author, post_id)
-        if liker in post.users_liked:  # if has this user already liked this post
+        # if has this user already liked this post
+        if liker in post.users_liked:
             post.users_liked.remove(str(liker))
             post.likes -= 1
         else:

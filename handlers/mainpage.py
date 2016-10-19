@@ -12,14 +12,16 @@ import models.comment as db_comment  # facilitates queries for comments
 
 
 class MainPage(handler.Handler):
+
     """ Default HTTP Request Handler """
+
     def get(self, msg=None):
         """ Display 10 most recent blog posts """
 
         posts = db_post.Post.view_posts()
 
-         # Get the number of comments for each post,
-         # and store as int in each post.
+        # Get the number of comments for each post,
+        # and store as int in each post.
         for post in posts:
             comment_arry = db_comment.Comment.get_comments(post)
             post.num_comments(len(comment_arry))

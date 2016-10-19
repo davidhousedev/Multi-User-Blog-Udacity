@@ -9,8 +9,11 @@ import handler as handler
 import models.post as db_post  # facilitates creation and query for blog posts
 import models.comment as db_comment  # facilitates queries for comments
 
+
 class ViewPost(handler.Handler):
+
     """ Renders a single blog post via a permalink """
+
     def get(self, user, post_id):
         """ Displays a single post """
         if not post_id and user:

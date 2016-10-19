@@ -26,9 +26,14 @@ TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), '../templates')
 JINJA_ENV = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATE_DIR),
                                autoescape=True)
 
-# Methods in Handler class are all sourced from Intro to Backend course material
+# Methods in Handler class are all sourced from Intro to Backend course
+# material
+
+
 class Handler(webapp2.RequestHandler):
+
     """ Renders html templates with Jinja2 variables """
+
     def write(self, *a, **kw):
         """ Writes HTML """
         self.response.out.write(*a, **kw)

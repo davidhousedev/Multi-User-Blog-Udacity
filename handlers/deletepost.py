@@ -3,8 +3,11 @@
 import handler as handler
 import models.post as db_post  # facilitates creation and query for blog posts
 
+
 class DeletePost(handler.Handler):
+
     """ Queries database for a post and deletes it if found """
+
     def post(self, author, post_id):
         """ If current user is author, delete's Post:post_id.
         Otherwise, redirects back to post """

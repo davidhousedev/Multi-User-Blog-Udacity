@@ -16,11 +16,14 @@ import random
 import hashlib
 from string import letters
 
-# Source: Methods in this file were borrowed from Intro to Backend course materials
+# Source: Methods in this file were borrowed from Intro to Backend course
+# materials
+
 
 def make_salt(length=5):
     """ Returns a string of five random chars """
     return "".join(random.choice(letters) for x in xrange(length))
+
 
 def make(username, password, salt=None):
     """ Returns a string formatted "salt|hashed_pw"
@@ -29,6 +32,7 @@ def make(username, password, salt=None):
         salt = make_salt()
     hashed_pw = hashlib.sha256(username + password + salt).hexdigest()
     return "%s,%s" % (salt, hashed_pw)
+
 
 def validate(username, password, hashed_pw):
     """ Validates authenticity of user input username and password """

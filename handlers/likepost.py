@@ -3,8 +3,11 @@
 import handler as handler
 import models.post as db_post  # facilitates creation and query for blog posts
 
+
 class LikePost(handler.Handler):
+
     """ Increase or decrease post likes by 1 """
+
     def get(self, *args):
         post_author = args[0]
         post_id = args[1]

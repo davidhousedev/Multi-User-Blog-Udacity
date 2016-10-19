@@ -8,8 +8,11 @@
 import handler as handler
 import models.post as db_post  # facilitates creation and query for blog posts
 
+
 class NewPost(handler.Handler):
+
     """ Handles all requests related to creating new blog posts """
+
     def show_form(self, form_data=None):
         """ Display HTML form with any residual user-generated content """
         self.render("newpost.html", form_data=form_data)
@@ -22,7 +25,8 @@ class NewPost(handler.Handler):
             self.redirect("/login")
 
     def post(self):
-        """ If user input from form is valid, create new blog post in database """
+        """ If user input from form is valid,
+        create new blog post in database """
         if not self.user:
             self.redirect("/login")
 
@@ -38,8 +42,8 @@ class NewPost(handler.Handler):
                                     users_liked=[],
                                     content=form_data["content"])
             new_post.put()
-            self.redirect("/post/%s/%s" %(self.user.username,
-                                          new_post.key().id()))
+            self.redirect("/post/%s/%s" % (self.user.username,
+                                           new_post.key().id()))
         else:
             form_data["error"] = "Both a title and content are required"
             self.show_form(form_data)
