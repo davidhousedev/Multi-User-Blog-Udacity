@@ -17,7 +17,7 @@ class EditPost(handler.Handler):
     def get(self, author, post_id):
         """ Open html view used to edit post """
         if not self.user:
-            self.redirect("/login")
+            return self.redirect("/login")
 
         post = db_post.Post.get_post(author, post_id)
         if post and self.user.username == author:
@@ -27,7 +27,7 @@ class EditPost(handler.Handler):
         """ If current user is author,
         edit posts according to changes made in edit view """
         if not self.user:
-            self.redirect("/login")
+            return self.redirect("/login")
 
         if self.user.username == author:
             title = self.request.get("title")

@@ -28,7 +28,7 @@ class NewPost(handler.Handler):
         """ If user input from form is valid,
         create new blog post in database """
         if not self.user:
-            self.redirect("/login")
+            return self.redirect("/login")
 
         form_data = {}
         form_data["title"] = self.request.get("title")

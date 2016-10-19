@@ -10,7 +10,8 @@ class DeleteComment(handler.Handler):
 
     def post(self, author, post_id, comment_id):
         """ Receives submission from delete button to delete a comment """
-        db_comment.Comment.delete(author,
-                                  post_id,
-                                  comment_id)
+        if self.user.username == author:
+            db_comment.Comment.delete(author,
+                                      post_id,
+                                      comment_id)
         self.redirect("/post" "/%s/%s" % (author, post_id))
