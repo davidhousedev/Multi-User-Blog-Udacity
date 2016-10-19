@@ -11,6 +11,7 @@ import handlers.deletepost as deletepost
 import handlers.viewpost as viewpost
 import handlers.likepost as likepost
 import handlers.editcomment as editcomment
+import handlers.deletecomment as deletecomment
 import handlers.signup as signup
 import handlers.login as login
 import handlers.logout as logout
@@ -19,6 +20,7 @@ import handlers.logout as logout
 app = webapp2.WSGIApplication([("/new", newpost.NewPost),
                                (r"/post/([a-z, A-Z]+)/([0-9]+)", viewpost.ViewPost),
                                (r"/edit/comment/([a-z, A-Z]+)/([0-9]+)/([0-9]+)", editcomment.EditComment),
+                               (r"/del/comment/([a-z, A-Z]+)/([0-9]+)/([0-9]+)", deletecomment.DeleteComment),
                                (r"/edit/([a-z, A-Z]+)/([0-9]+)", editpost.EditPost),
                                (r"/del/([a-z, A-Z]+)/([0-9]+)", deletepost.DeletePost),
                                (r"/post/([a-z, A-Z]+)/([0-9]+)/like/([a-z, A-Z]+)", likepost.LikePost),

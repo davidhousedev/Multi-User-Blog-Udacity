@@ -61,6 +61,18 @@ class Comment(db.Model):
             return True
         return False
 
+    @classmethod
+    def delete(cls, author, post_id, comment_id):
+        """ Deletes comment at key path: author, post_id, comment_id """
+        db_key = db.Key.from_path("User", author,
+                                  "Post", int(post_id),
+                                  "Comment", int(comment_id))
+        if db_key:
+            db.delete(db_key)  # delete the entity matching db_key
+            return True
+        else:
+            return False
+
 
     def render(self):
         """ Replaces newlines in post content with <br>
